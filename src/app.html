@@ -37,7 +37,9 @@
 
 				if (localStorage.theme === 'system') {
 					document.documentElement.classList.add(prefersDarkTheme ? 'dark' : 'light');
-					metaThemeColorTag.setAttribute('content', prefersDarkTheme ? '#171717' : '#ffffff');
+					document.documentElement.classList.add('velatura');
+					metaThemeColorTag.setAttribute('content', '#3f6f51');
+					// metaThemeColorTag.setAttribute('content', prefersDarkTheme ? '#171717' : '#ffffff');
 				} else if (localStorage.theme === 'oled-dark') {
 					document.documentElement.style.setProperty('--color-gray-800', '#101010');
 					document.documentElement.style.setProperty('--color-gray-850', '#050505');
@@ -52,7 +54,8 @@
 					document.documentElement.classList.add('dark');
 					document.documentElement.classList.add('her');
 					metaThemeColorTag.setAttribute('content', '#983724');
-				} else {
+				} 			
+				else {
 					document.documentElement.classList.add('dark');
 					metaThemeColorTag.setAttribute('content', '#171717');
 				}
@@ -160,6 +163,16 @@
 </html>
 
 <style type="text/css" nonce="">
+
+	    /* Primary Theme Color */
+	:root {
+        --primary-color: #4a6f56;  /* Green color from the logo */
+        --secondary-color: #064e3b;		/* Dark greenish-black */
+        --accent-color: #5c92b2;    /* Blue from the logo */
+        --background-color: #e8f0e4; /* Light grayish-green background */
+        --text-color: #3a3a3a;      /* Gray for text */
+    }
+
 	html {
 		overflow-y: hidden !important;
 	}
@@ -179,6 +192,17 @@
 	html.her #splash-screen {
 		background: #983724;
 	}
+
+	html.velatura #splash-screen {
+        background: #e8f0e4; /* Light greenish-gray background */
+    }
+
+	html.velatura button:hover,
+	html.velatura a:hover{
+    background-color: var(--primary-color); /* Sets hover color to primary color */
+    color: #ffffff; /* Ensures text remains readable on the primary color */
+	text-decoration: none;
+}
 
 	#logo-her {
 		display: none;
