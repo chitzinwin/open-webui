@@ -16,9 +16,9 @@
 </script>
 
 {#if prompts.length > 0}
-	<div class="mb-1 flex gap-1 text-sm font-medium items-center text-gray-400 dark:text-gray-600">
+	<div class="mb-1 flex gap-1 text-sm font-medium items-center text-gray-600 dark:text-gray-600">
 		<Bolt />
-		{@html $i18n.t('Enter "#" to select existing knowledge base. Follow <a href="https://docs.openwebui.com/features/workspace/knowledge/#setting-up-your-knowledge-base" target="_blank" class="text-blue-600 font-bold hover:text-blue-800 hover:underline">docs</a> to create your own.')}
+		{@html $i18n.t('Enter "#" to select existing knowledge base or follow <a href="https://docs.openwebui.com/features/workspace/knowledge/#setting-up-your-knowledge-base" target="_blank" class="text-gray-200 font-bold hover:underline">docs</a> to create your own.')}
 	</div>
 {/if}
 

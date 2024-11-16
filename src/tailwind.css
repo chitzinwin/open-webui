@@ -13,4 +13,19 @@
 	pre {
 		white-space: pre-wrap;
 	}
+
+	:root {
+		--color-gray-50:  #e8f0e4;
+		--color-gray-100: #4a6f56; 
+		--color-gray-200: #4a6f56; 
+	}
+
+	.dark {
+		--color-gray-50:  #f9f9f9;
+		--color-gray-100: #ececec; 
+		--color-gray-200: #e3e3e3; 
+	}
+
+
+	
 }

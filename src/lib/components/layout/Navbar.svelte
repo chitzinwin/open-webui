@@ -72,6 +72,16 @@
 				{#if showModelSelector}
 					<ModelSelector bind:selectedModels showSetDefault={!shareEnabled} />
 				{/if}
+				<img 
+					src="/velatura.png" 
+					alt="velatura logo" 
+					class="{(shareEnabled && chat && (chat.id || $temporaryChatEnabled)) 
+						? 'max-w-[100px] max-h-[100px]' 
+						: 'max-w-[128px] max-h-[128px]'} 
+						absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+						transition-all duration-300 ease-in-out cursor-pointer"
+					on:click={() => (location.href = '/')}
+				/>
 			</div>
 
 			<div class="self-start flex flex-none items-center text-gray-600 dark:text-gray-400">
