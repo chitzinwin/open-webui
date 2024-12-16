@@ -160,7 +160,7 @@ export const getFileContentById = async (id: string) => {
 		headers: {
 			Accept: 'application/json'
 		},
-		credentials: 'include'
+		credentials: import.meta.env.VITE_WEBUI_BASE_URL ? 'omit' : 'include'
 	})
 		.then(async (res) => {
 			if (!res.ok) throw await res.json();
