@@ -165,7 +165,7 @@
 			<div
 				class="max-h-60 flex flex-col w-full rounded-xl bg-white dark:bg-gray-900 dark:text-gray-100"
 			>
-				<div class="m-1 overflow-y-auto p-1 rounded-r-xl space-y-0.5 scrollbar-hidden">
+				<div class="m-1 overflow-y-auto p-1 rounded-r-xl space-y-0.5 scrollbar scrollbar-thumb-gray-50">
 					{#each filteredItems as item, idx}
 						<button
 							class=" px-3 py-1.5 rounded-xl w-full text-left flex justify-between items-center {idx ===

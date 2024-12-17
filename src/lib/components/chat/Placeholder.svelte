@@ -90,7 +90,7 @@
 </script>
 
 {#key mounted}
-	<div class="m-auto w-full max-w-6xl px-2 xl:px-20 translate-y-6 py-24 text-center">
+	<div class="m-auto w-full max-w-6xl px-2 xl:px-20 py-24 text-center fixed-position">
 		{#if $temporaryChatEnabled}
 			<Tooltip
 				content="This chat won't appear in history and your messages will not be saved."
@@ -109,7 +109,7 @@
 			<div class="w-full flex flex-col justify-center items-center">
 				<div class="flex flex-row justify-center gap-3 sm:gap-3.5 w-fit px-5">
 					<div class="flex flex-shrink-0 justify-center">
-						<div class="flex -space-x-4 mb-0.5" in:fade={{ duration: 100 }}>
+						<!-- <div class="flex -space-x-4 mb-0.5" in:fade={{ duration: 100 }}>
 							{#each models as model, modelIdx}
 								<Tooltip
 									content={(models[modelIdx]?.info?.meta?.tags ?? [])
@@ -135,12 +135,26 @@
 									</button>
 								</Tooltip>
 							{/each}
-						</div>
+						</div> -->
 					</div>
 
 					<div class=" capitalize text-3xl sm:text-4xl line-clamp-1" in:fade={{ duration: 100 }}>
 						{#if models[selectedModelIdx]?.name}
-							{$i18n.t("Ready to chat")}
+						<div class="flex flex-col items-center justify-center gap-0">
+							<div class="flex items-center gap-2">
+
+							<img 
+								crossorigin="anonymous"
+								src={`${WEBUI_BASE_URL}/velatura.png`}
+								class="flex max-w-[256px] max-h-[256px] border-gray-200 dark:border-none"
+								alt="logo"
+								draggable="false"
+							/>
+							<span class="text-gray-600 dark:text-gray-100"> {$i18n.t("ai")}</span>
+						</div>
+
+							<span class="-mt-7">{$i18n.t("Ready to chat")}</span>
+						</div>
 						<!-- {models[selectedModelIdx]?.name} -->
 						{:else}
 							{$i18n.t('Hello, {{name}}', { name: $user.name })}
@@ -230,3 +244,13 @@
 		</div>
 	</div>
 {/key}
+<style>
+    /* Add this to your component's style section */
+    .fixed-position {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+    }
+</style>

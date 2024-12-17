@@ -1,0 +1,9 @@
+FROM 745222113226.dkr.ecr.us-east-1.amazonaws.com/velatura/open-webui:latest
+
+COPY ./build /app/build
+COPY ./CHANGELOG.md /app/CHANGELOG.md
+COPY ./package.json /app/package.json
+
+COPY ./backend .
+
+ 

@@ -237,7 +237,7 @@
 		id="model-selector-{id}-button"
 	>
 		<div
-			class="flex w-full text-left px-0.5 outline-none bg-transparent truncate {triggerClassName} justify-between font-medium placeholder-gray-400 focus:outline-none"
+			class="flex w-full text-left outline-none p-2 border rounded-3xl bg-gray-50 truncate {triggerClassName} justify-between font-medium placeholder-gray-400 focus:outline-none"
 		>
 			{#if selectedModel}
 				{selectedModel.label}
@@ -296,7 +296,7 @@
 						aria-label="model-item"
 						class="flex w-full text-left font-medium line-clamp-1 select-none items-center rounded-button py-2 pl-3 pr-1.5 text-sm text-gray-700 dark:text-gray-100 outline-none transition-all duration-75 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer data-[highlighted]:bg-muted {index ===
 						selectedModelIdx
-							? 'bg-gray-100 dark:bg-gray-800  group-hover:text-white'
+							? 'bg-gray-100 dark:bg-gray-800 text-white'
 							: ''}"
 						data-arrow-selected={index === selectedModelIdx}
 						on:click={() => {
