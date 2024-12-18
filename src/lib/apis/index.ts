@@ -737,7 +737,7 @@ export const getBackendConfig = async () => {
 
 	const res = await fetch(`${WEBUI_BASE_URL}/api/config`, {
 		method: 'GET',
-		credentials: import.meta.env.VITE_WEBUI_BASE_URL ? 'omit' : 'include',
+		credentials: 'include',
 		headers: {
 			'Content-Type': 'application/json'
 		}
