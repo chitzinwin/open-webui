@@ -33,6 +33,8 @@
 	import XMark from '../icons/XMark.svelte';
 	import RichTextInput from '../common/RichTextInput.svelte';
 
+    let showInitialTooltips = false;
+
 	const i18n = getContext('i18n');
 
 	export let transparentBackground = false;
@@ -229,6 +231,14 @@
 	};
 
 	onMount(() => {
+		setTimeout(() => {
+            showInitialTooltips = true;
+            // Hide tooltips after 2 seconds
+            setTimeout(() => {
+                showInitialTooltips = false;
+            }, 3000);
+        }, 500); // Small delay before showing tooltips
+
 		window.setTimeout(() => {
 			const chatInput = document.getElementById('chat-input');
 			chatInput?.focus();
@@ -241,6 +251,8 @@
 		dropZone?.addEventListener('dragover', onDragOver);
 		dropZone?.addEventListener('drop', onDrop);
 		dropZone?.addEventListener('dragleave', onDragLeave);
+
+
 	});
 
 	onDestroy(() => {
@@ -479,7 +491,7 @@
 							{/if}
 
 							<div class=" flex">
-								<div class=" ml-0.5 self-end mb-1.5 flex space-x-1">
+								<!-- <div class=" ml-0.5 self-end mb-1.5 flex space-x-1">
 									<InputMenu
 										bind:webSearchEnabled
 										bind:selectedToolIds
@@ -520,8 +532,67 @@
 											</svg>
 										</button>
 									</InputMenu>
-								</div>
+								</div>  -->
+								<Tooltip content={$i18n.t('Upload Files')}  force={showInitialTooltips}
+								placement="left"
+								tippyOptions={{
+									animation: 'fade',
+									duration: [200, 100]  // [enter, exit] duration
+								}}
+								>
 
+								<button
+									id="file-upload-button"
+									class="text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-850 transition rounded-full p-1.5 mr-0.5 self-center"
+									type="button"
+									on:click={() => {
+										filesInputElement.click();
+									}}
+										aria-label="Upload File"
+								>
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+										<polyline points="17 8 12 3 7 8"/>
+										<line x1="12" y1="3" x2="12" y2="15"/>
+									</svg>
+								</button>
+								</Tooltip>
+								<Tooltip force={showInitialTooltips} content={$i18n.t(webSearchEnabled ? 'Web Search is ON' : 'Web Search is OFF')}
+								tippyOptions={{
+									animation: 'fade',
+									delay: [0, 0],
+									offset: [0, 8]    // Adjust offset if needed [x, y]
+								}}>
+									<button
+										id="web-search-toggle"
+										class="text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-850 transition rounded-full p-1.5 mr-0.5 self-center
+											{webSearchEnabled ? 'text-white dark:text-blue-400 bg-gray-100 dark:bg-gray-800' : ''}"
+										type="button"
+										on:click={() => {
+											webSearchEnabled = !webSearchEnabled;
+										}}
+										aria-label="Toggle Web Search"
+										aria-pressed={webSearchEnabled}
+									>
+										<svg 
+											xmlns="http://www.w3.org/2000/svg" 
+											width="24" 
+											height="24" 
+											viewBox="0 0 24 24" 
+											fill="none"
+											stroke="currentColor" 
+											stroke-width="2" 
+											stroke-linecap="round" 
+											stroke-linejoin="round"
+											class="transition-colors duration-200"
+										>
+											<circle cx="12" cy="12" r="10"/>
+											<line x1="2" y1="12" x2="22" y2="12"/>
+											<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+										</svg>
+									</button>
+								</Tooltip>
+								
 								{#if $settings?.richTextInput ?? true}
 									<div
 										bind:this={chatInputContainerElement}
@@ -694,7 +765,7 @@
 									<textarea
 										id="chat-input"
 										bind:this={chatInputElement}
-										class="scrollbar-hidden bg-gray-50 dark:bg-gray-850 dark:text-gray-100 outline-none w-full py-3 px-1 rounded-xl resize-none h-[48px]"
+										class="relative scrollbar-hidden bg-gray-50 dark:bg-gray-850 dark:text-gray-100 outline-none w-full py-3 px-1 rounded-xl resize-none h-[48px]"
 										placeholder={placeholder ? placeholder : $i18n.t('Send a Message')}
 										bind:value={prompt}
 										on:keypress={(e) => {
@@ -867,7 +938,7 @@
 
 								<div class="self-end mb-2 flex space-x-1 mr-1">
 									{#if !history?.currentId || history.messages[history.currentId]?.done == true}
-										<Tooltip content={$i18n.t('Record voice')}>
+										<Tooltip content={$i18n.t('Record voice')} force={showInitialTooltips}>
 											<button
 												id="voice-input-button"
 												class=" text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-850 transition rounded-full p-1.5 mr-0.5 self-center"
@@ -921,7 +992,13 @@
 							{#if !history.currentId || history.messages[history.currentId]?.done == true}
 								{#if prompt === ''}
 									<div class=" flex items-center mb-1">
-										<Tooltip content={$i18n.t('Call')}>
+										<Tooltip content={$i18n.t('Call')} force={showInitialTooltips}
+										placement='right'
+										tippyOptions={{
+											animation: 'fade',
+											duration: [200, 100]
+										}}
+										>
 											<button
 												class=" text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-850 transition rounded-full p-2 self-center"
 												type="button"
