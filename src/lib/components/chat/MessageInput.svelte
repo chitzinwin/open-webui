@@ -561,7 +561,8 @@
 								tippyOptions={{
 									animation: 'fade',
 									delay: [0, 0],
-									offset: [0, 8]    // Adjust offset if needed [x, y]
+									duration:  [200, 100],
+									hideOnClick: false,   // Prevent hiding on click
 								}}>
 									<button
 										id="web-search-toggle"
@@ -938,7 +939,13 @@
 
 								<div class="self-end mb-2 flex space-x-1 mr-1">
 									{#if !history?.currentId || history.messages[history.currentId]?.done == true}
-										<Tooltip content={$i18n.t('Record voice')} force={showInitialTooltips}>
+										<Tooltip content={$i18n.t('Record voice')} force={showInitialTooltips}
+										tippyOptions={{
+											animation: 'fade',
+											delay: [0, 0],
+											duration:  [200, 100],
+											offset: [0, 10]    // Adjust offset if needed [x, y]
+										}}>
 											<button
 												id="voice-input-button"
 												class=" text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-850 transition rounded-full p-1.5 mr-0.5 self-center"

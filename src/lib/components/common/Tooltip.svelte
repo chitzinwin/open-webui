@@ -14,6 +14,7 @@
 	export let theme = '';
 	export let allowHTML = true;
 	export let tippyOptions = {};
+    export let force = false; // Add force prop
 
 	let tooltipElement;
 	let tooltipInstance;
@@ -38,7 +39,14 @@
 			tooltipInstance.destroy();
 		}
 	}
-
+    // Watch for force prop changes
+    $: if (tooltipInstance && force !== undefined) {
+        if (force) {
+            tooltipInstance.show();
+        } else {
+            tooltipInstance.hide();
+        }
+    }
 	onDestroy(() => {
 		if (tooltipInstance) {
 			tooltipInstance.destroy();
