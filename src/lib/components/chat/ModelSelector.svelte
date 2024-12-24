@@ -12,6 +12,7 @@
     export let selectedModels = [''];
     export let disabled = false;
     export let showSetDefault = true;
+    let isChangingDefault = false;
 
     // Initialize default model from settings or selectedModels
     let defaultModel = $settings?.models?.[0] || selectedModels[0] || '';
@@ -94,41 +95,71 @@
 <div class="flex flex-col space-y-4">
     <!-- Default Model Selection -->
     <div class="flex items-center space-x-3">
-        <div class="model-label">Default model:</div>
-        <div class="flex flex-col items-start">
-            <div class="overflow-hidden w-full">
-                <div class="mr-1 max-w-full">
-                    <Selector
-                        id="default-model"
-                        placeholder={$i18n.t('Select default model')}
-                        items={$models.map((model) => ({
-                            value: model.id,
-                            label: model.name,
-                            model: model
-                        }))}
-                        showTemporaryChatControl={$user.role === 'user'
-                            ? ($config?.permissions?.chat?.temporary ?? true)
-                            : true}
-                        bind:value={defaultModel}
-                    />
-                </div>
-            </div>
-            {#if showSetDefault}
-                <div class="text-left mt-1 text-[0.9rem] text-gray-500 font-primary">
-                    <button on:click={saveDefaultModel}>Set as default</button>
-                </div>
-            {/if}
-        </div>
-    </div>
+		<div class="model-label">Default Model:</div>
+		<div class="flex flex-col items-start">
+			<div class="overflow-hidden w-full">
+				<div class="mr-1 max-w-full">
+					{#if !isChangingDefault}
+						<!-- Static display box when not changing -->
+						<div class="min-h-[40px] p-2 border rounded-3xl bg-gray-50">
+							{#if defaultModel}
+								<div class="ml-2 font-medium text-gray-900">
+									{$models.find(m => m.id === defaultModel)?.name}
+								</div>
+							{:else}
+								<div class="text-sm text-gray-500">
+									No model selected
+								</div>
+							{/if}
+						</div>
+					{:else}
+						<!-- Selector only shown when changing -->
+						<Selector
+							id="default-model"
+							placeholder={$i18n.t('Select default model')}
+							items={$models.map((model) => ({
+								value: model.id,
+								label: model.name,
+								model: model
+							}))}
+							showTemporaryChatControl={$user.role === 'user'
+								? ($config?.permissions?.chat?.temporary ?? true)
+								: true}
+							bind:value={defaultModel}
+							class="hover:bg-transparent hover:text-inherit"
+						/>
+					{/if}
+				</div>
+			</div>
+			
+			<!-- Change default button -->
+			<div class="text-left mt-1 text-[0.9rem] text-gray-500 font-primary">
+				<button 
+					on:click={async() => {
+ 						if (isChangingDefault) {
+            			// When "Set as default" is clicked, save the selection
+						await saveDefaultModel();
+						isChangingDefault = false;
+					} else {
+						// When "Change default" is clicked, enter selection mode
+						isChangingDefault = true;
+					}						
+					}}
+				>
+					{isChangingDefault ? 'Set as default' : 'Change default'}
+				</button>
+			</div>
+		</div>
+	</div>
 
     <!-- Comparison Models Selection -->
 	<div class="flex items-center space-x-3">
-		<div class="model-label">More model(s):</div>
+		<div class="model-label">Add model(s):</div>
 		<div class="flex flex-col items-start">
 			<div class="overflow-visible w-full max-w-fit comparison-selector">
 				<div class="mr-1 max-w-full">
 					<div 
-						class="min-h-[40px] w-[200px] p-2 border rounded-3xl bg-gray-50 cursor-pointer flex items-center justify-between"
+						class="min-h-[40px] p-2 border rounded-3xl bg-gray-50 cursor-pointer flex items-center justify-between"
 						on:mousedown|preventDefault={() => {
 							showDropdown = !showDropdown;
 						}}
@@ -138,7 +169,7 @@
 					>
 						<div class="flex flex-wrap gap-2 items-center flex-1">
 							{#if !comparisonModels.length}
-                            	<span class="text-gray-500">Activate one or more model(s)</span>
+                            	<span class="text-gray-500">Add to compare results</span>
 							{:else}
 								<div class="flex flex-wrap gap-2">
 									{#each comparisonModels as modelId}
