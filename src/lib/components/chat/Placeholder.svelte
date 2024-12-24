@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { toast } from 'svelte-sonner';
 	import { marked } from 'marked';
+	import Bolt from '$lib/components/icons/Bolt.svelte';
+	import Info from '$lib/components/icons/Info.svelte';
 
 	import { onMount, getContext, tick, createEventDispatcher } from 'svelte';
 	import { blur, fade } from 'svelte/transition';
@@ -228,8 +230,28 @@
 						}}
 					/>
 				</div>
+				<div class="flex gap-1 text-sm font-medium items-center text-gray-600 dark:text-gray-600 justify-start">
+					<Bolt />
+					{@html $i18n.t('Type "#" to select existing knowledge base.')}
+					
+				</div>
+				<div class="flex gap-1 text-sm font-medium items-center text-gray-600 dark:text-gray-600 justify-start">
+					<Info />
+					{@html $i18n.t('Click "+" to upload one or more doucments.')}
+
+				</div>
+				<div class="flex gap-1 text-sm font-medium items-center text-gray-600 dark:text-gray-600 justify-start">
+					<Info />
+					{@html $i18n.t('Click "+" to toggle for enabling websearch.')}
+
+				</div>
+				<div class="flex gap-1 text-sm font-medium items-center text-gray-600 dark:text-gray-600 justify-start">
+					<Bolt />
+					{@html $i18n.t('Follow <a href="https://docs.openwebui.com/features/workspace/knowledge/#setting-up-your-knowledge-base" target="_blank" class="text-gray-200 font-bold hover:underline">docs</a> to create your own knowledge base.')}					
+				</div>
 			</div>
 		</div>
+		
 		<div class="mx-auto max-w-2xl font-primary" in:fade={{ duration: 200, delay: 200 }}>
 			<div class="mx-5">
 				<Suggestions

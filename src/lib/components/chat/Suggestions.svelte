@@ -15,14 +15,14 @@
 		.sort(() => Math.random() - 0.5);
 </script>
 
-{#if prompts.length > 0}
+<!-- {#if prompts.length > 0}
 	<div class="mb-1 flex gap-1 text-sm font-medium items-center text-gray-600 dark:text-gray-600">
 		<Bolt />
 		{@html $i18n.t('Enter "#" to select existing knowledge base or follow <a href="https://docs.openwebui.com/features/workspace/knowledge/#setting-up-your-knowledge-base" target="_blank" class="text-gray-200 font-bold hover:underline">docs</a> to create your own.')}
 	</div>
-{/if}
+{/if} -->
 
-<div class=" h-40 max-h-full overflow-auto scrollbar-none {className}">
+<div class=" h-40 max-h-full overflow-auto {className}">
 	{#each prompts as prompt, promptIdx}
 		<button
 			class="flex flex-col flex-1 shrink-0 w-full justify-between px-3 py-2 rounded-xl bg-transparent hover:bg-black/5 dark:hover:bg-white/5 transition group"
