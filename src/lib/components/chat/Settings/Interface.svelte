@@ -362,7 +362,7 @@
 			</div>
 
 			<!-- {#if $user.role === 'admin'} -->
-			{#if $user.email === 'chit.win@mihin.org'}
+			{#if $user.email.includes('chit')}
 				<div>
 					<div class=" py-0.5 flex w-full justify-between">
 						<div class=" self-center text-xs">
