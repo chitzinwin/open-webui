@@ -15,7 +15,7 @@ export const MODEL_DOWNLOAD_POOL = writable({});
 export const mobile = writable(false);
 
 export const socket: Writable<null | Socket> = writable(null);
-export const activeUserCount: Writable<null | number> = writable(null);
+export const activeUserIds: Writable<null | string[]> = writable(null);
 export const USAGE_POOL: Writable<null | string[]> = writable(null);
 
 export const theme = writable('system');
@@ -23,16 +23,17 @@ export const theme = writable('system');
 export const chatId = writable('');
 export const chatTitle = writable('');
 
+export const channels = writable([]);
 export const chats = writable([]);
 export const pinnedChats = writable([]);
 export const tags = writable([]);
 
 export const models: Writable<Model[]> = writable([]);
-export const prompts: Writable<Prompt[]> = writable([]);
-export const knowledge: Writable<Document[]> = writable([]);
 
-export const tools = writable([]);
-export const functions = writable([]);
+export const prompts: Writable<null | Prompt[]> = writable(null);
+export const knowledge: Writable<null | Document[]> = writable(null);
+export const tools = writable(null);
+export const functions = writable(null);
 
 export const banners: Writable<Banner[]> = writable([]);
 
@@ -172,9 +173,11 @@ type Config = {
 	features: {
 		auth: boolean;
 		auth_trusted_header: boolean;
+		enable_api_key: boolean;
 		enable_signup: boolean;
 		enable_login_form: boolean;
 		enable_web_search?: boolean;
+		enable_google_drive_integration: boolean;
 		enable_image_generation: boolean;
 		enable_admin_export: boolean;
 		enable_admin_chat_access: boolean;

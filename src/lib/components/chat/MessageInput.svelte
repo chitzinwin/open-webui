@@ -231,13 +231,18 @@
 	};
 
 	onMount(() => {
-		setTimeout(() => {
-            showInitialTooltips = true;
-            // Hide tooltips after 2 seconds
-            setTimeout(() => {
-                showInitialTooltips = false;
-            }, 3000);
-        }, 500); // Small delay before showing tooltips
+		const hasSeenTooltips = localStorage.getItem('hasSeenTooltips');
+        if (!hasSeenTooltips) {
+			setTimeout(() => {
+				showInitialTooltips = true;
+				localStorage.setItem('hasSeenTooltips', 'true');
+				// Hide tooltips after 3 seconds
+				setTimeout(() => {
+					showInitialTooltips = false;
+				}, 3000);
+			}, 500); // Small delay before showing tooltips
+
+		}
 
 		window.setTimeout(() => {
 			const chatInput = document.getElementById('chat-input');
