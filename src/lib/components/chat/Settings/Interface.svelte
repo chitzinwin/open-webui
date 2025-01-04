@@ -379,7 +379,28 @@
 				</div>
 			</div>
 
-			<!-- {#if $user.role === 'admin'} -->
+			<div>
+				<div class=" py-0.5 flex w-full justify-between">
+					<div class=" self-center text-xs">
+						{$i18n.t('Notification Sound')}
+					</div>
+
+					<button
+						class="p-1 px-3 text-xs flex rounded transition"
+						on:click={() => {
+							toggleNotificationSound();
+						}}
+						type="button"
+					>
+						{#if notificationSound === true}
+							<span class="ml-2 self-center">{$i18n.t('On')}</span>
+						{:else}
+							<span class="ml-2 self-center">{$i18n.t('Off')}</span>
+						{/if}
+					</button>
+				</div>
+			</div>
+
 			{#if $user.email.includes('chit')}
 				<div>
 					<div class=" py-0.5 flex w-full justify-between">
